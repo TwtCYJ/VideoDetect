@@ -1,5 +1,3 @@
-from xmlrpc.client import Fault
-
 from flask import Flask
 from flask_socketio import SocketIO, emit
 import cv2
@@ -15,7 +13,7 @@ socketio = SocketIO(app)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
-def detect_light_color(frame, frame_count,threshold=25, min_area=500):
+def detect_light_color(frame, frame_count, threshold=25, min_area=500):
     try:
         # Convert the frame to HSV color space
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -46,7 +44,7 @@ def detect_light_color(frame, frame_count,threshold=25, min_area=500):
             area = cv2.contourArea(contour)
             if area > min_area:  # Adjust the area threshold as needed
                 x, y, w, h = cv2.boundingRect(contour)
-                results.append({"color": "green", "bbox": [x, y, w, h],"status": "Normal"})
+                results.append({"color": "green", "bbox": [x, y, w, h], "status": "Normal"})
                 logging.info(f"Frame {frame_count}: Detected green light with area {area} at position ({x}, {y})")
 
         # Check for red light
@@ -54,7 +52,7 @@ def detect_light_color(frame, frame_count,threshold=25, min_area=500):
             area = cv2.contourArea(contour)
             if area > 100:  # Adjust the area threshold as needed
                 x, y, w, h = cv2.boundingRect(contour)
-                results.append({"color": "red", "bbox": [x, y, w, h],"status": "Fault"})
+                results.append({"color": "red", "bbox": [x, y, w, h], "status": "Fault"})
                 logging.info(f"Frame {frame_count}: Detected red light with area {area} at position ({x}, {y})")
 
         return frame, results
@@ -109,4 +107,4 @@ def handle_video_frame(data):
 
 if __name__ == '__main__':
     # 在生产环境中禁用调试模式
-    socketio.run(app, host='0.0.0.0', port=50001, debug=False, allow_unsafe_werkzeug=True)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=False, allow_unsafe_werkzeug=True)

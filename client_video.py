@@ -55,7 +55,7 @@ def draw_boxes(frame, detections):
 
 def main():
     # 连接到SocketIO服务器
-    sio.connect('http://localhost:50001')
+    sio.connect('http://localhost:5000')
 
     # 使用视频文件作为输入源
     video_path = 'video.mp4'

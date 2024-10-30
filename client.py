@@ -39,7 +39,7 @@ def draw_boxes(frame, detections):
 
 def main():
     # 连接到SocketIO服务器
-    sio.connect('http://localhost:50001')
+    sio.connect('http://localhost:5000')
 
     # 打开摄像头
     cap = cv2.VideoCapture(0)

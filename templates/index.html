@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask-SocketIO Test</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener('DOMContentLoaded', function () {
+            var socket = io();
+            socket.on('connect', function() {
+                socket.send('User has connected!');
+            });
+            socket.on('message', function(msg) {
+                console.log('Received message: ' + msg);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Flask-SocketIO Test</h1>
+</body>
+</html>
